@@ -86,7 +86,7 @@ data class Repos (
     }
 
     override fun isFullSpan(): Boolean {
-        return true
+        return false
     }
 
     override fun onSelected(view: View, context: Context) {

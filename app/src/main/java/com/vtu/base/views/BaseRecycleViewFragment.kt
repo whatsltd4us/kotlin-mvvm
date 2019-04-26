@@ -19,11 +19,13 @@ open class BaseRecycleViewFragment : BaseFragment() {
     lateinit var recycleView : RecyclerView
     var mView: View? = null
 
-    val layoutID: Int
-        get() = R.layout.main_fragment
+    fun getLayoutID() : Int {
+        return R.layout.main_fragment
+    }
 
-    val column: Int
-        get() = DEFAULT_COLUMN_COUNT
+    fun getColumn() :Int {
+        return DEFAULT_COLUMN_COUNT
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,16 +35,16 @@ open class BaseRecycleViewFragment : BaseFragment() {
             if (mView!!.parent as ViewGroup != null)
                 (mView!!.parent as ViewGroup).removeView(mView)
         } else {
-            mView = inflater.inflate(layoutID, container, false)
+            mView = inflater.inflate(getLayoutID(), container, false)
         }
 
         recycleView = mView!!.findViewById(R.id.recycleView)
-        val staggeredGridLayoutManager = StaggeredGridLayoutManager(column, StaggeredGridLayoutManager.VERTICAL)
-        recycleView.setLayoutManager(staggeredGridLayoutManager)
+        val staggeredGridLayoutManager = StaggeredGridLayoutManager(getColumn(), StaggeredGridLayoutManager.VERTICAL)
+        recycleView.layoutManager = staggeredGridLayoutManager
         recycleView.addItemDecoration(GridSpacingItemDecoration(Utilities.dpToPx(context, 4)))
-        recycleView.setItemAnimator(DefaultItemAnimator())
+        recycleView.itemAnimator = DefaultItemAnimator()
 
-        recycleView.setAdapter(viewModel!!.baseAdapter)
+        recycleView.adapter = viewModel!!.baseAdapter
 
         return mView!!
     }
